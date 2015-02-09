@@ -25,10 +25,12 @@ import butterknife.OnClick;
 import ru.ming13.moon.R;
 import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
-import ru.ming13.moon.distance.FitnessActivitiesDistanceStorage;
+import ru.ming13.moon.storage.FitnessActivitiesDistanceStorage;
 import ru.ming13.moon.model.FitnessActivity;
 import ru.ming13.moon.model.FitnessActivityDistance;
 import ru.ming13.moon.util.Animations;
+import ru.ming13.moon.util.DistanceCalculator;
+import ru.ming13.moon.util.Formatters;
 import ru.ming13.moon.util.GoogleServices;
 import ru.ming13.moon.util.Intents;
 
@@ -136,8 +138,8 @@ public class MoonActivity extends ActionBarActivity implements
 
 	private void setUpActivityStats(FitnessActivityStatViewHolder statViewHolder, FitnessActivityDistance activityDistance) {
 		statViewHolder.activityIcon.setImageResource(getFitnessActivityIcon(activityDistance.getActivity()));
-		statViewHolder.activityTitle.setText(String.valueOf(activityDistance.getDistance()));
-		statViewHolder.activityDescription.setText("on the way to the Moon");
+		statViewHolder.activityTitle.setText(String.format("%.0f meters", activityDistance.getDistance()));
+		statViewHolder.activityDescription.setText(String.format("%s of the way to the Moon", Formatters.formatPercent(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
 	}
 
 	@DrawableRes

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<color name="background_primary">#ee4859</color>
-	<color name="background_primary_dark">#e73846</color>
+	<color name="background_primary">#12325c</color>
+	<color name="background_primary_dark">#0b284d</color>
 	<color name="background_accent">@color/background_primary</color>
 
+	<color name="background_button">#dddeb3</color>
 	<color name="background_divider">#1e000000</color>
 	<color name="background_frame">#eeeeee</color>
 	<color name="background_window">#f9f9f9</color>

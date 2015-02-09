@@ -1,4 +1,4 @@
-package ru.ming13.moon.distance;
+package ru.ming13.moon.storage;
 
 import android.support.annotation.NonNull;
 
@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
+import ru.ming13.moon.bus.BusProvider;
 import ru.ming13.moon.model.FitnessActivity;
 import ru.ming13.moon.model.FitnessActivityDistance;
 
@@ -46,7 +48,6 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 			.aggregate(DataType.TYPE_DISTANCE_DELTA, DataType.AGGREGATE_DISTANCE_DELTA)
 			.bucketByActivityType(1, TimeUnit.SECONDS)
 			.setTimeRange(pastDate.getTime(), presentDate.getTime(), TimeUnit.MILLISECONDS)
-			.enableServerQueries()
 			.build();
 	}
 
@@ -77,6 +78,8 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 				}
 			}
 		}
+
+		BusProvider.getBus().post(new ActivityDistancesLoadedEvent(walkingActivityDistance, runningActivityDistance, bikingActivityDistance));
 	}
 
 	public boolean isWalkingActivity(String activity) {
