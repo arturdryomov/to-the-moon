@@ -1,0 +1,9 @@
+# Android
+
+local.properties
+
+# Keys
+
+signing.properties
+
+# Use global .gitignore for your IDE

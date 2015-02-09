@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="ru.ming13.moon"
+	android:installLocation="auto">
+
+	<application
+		android:label="@string/application_name"
+		android:name=".MoonApplication"
+		android:theme="@style/Theme.Moon">
+
+		<meta-data
+			android:name="com.google.android.gms.version"
+			android:value="@integer/google_play_services_version"/>
+
+		<activity
+			android:name=".activity.MoonActivity">
+
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+
+		</activity>
+
+	</application>
+
+</manifest>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:auto="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:layout_weight="1"
+		android:layout_width="match_parent"
+		android:layout_height="0dp">
+
+		<Space
+			android:id="@+id/space_button_action"
+			android:layout_alignParentBottom="true"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"/>
+
+		<ImageView
+			android:id="@+id/image_moon"
+			android:src="@drawable/bg_moon"
+			android:scaleType="centerCrop"
+			android:layout_above="@id/space_button_action"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+		<com.melnykov.fab.FloatingActionButton
+			android:id="@+id/button_share"
+			android:visibility="invisible"
+			android:src="@drawable/ic_action_share"
+			auto:fab_colorNormal="@color/background_primary"
+			auto:fab_colorPressed="@color/background_primary"
+			android:layout_marginBottom="-28dp"
+			android:layout_marginRight="16dp"
+			android:layout_alignBottom="@id/image_moon"
+			android:layout_alignParentRight="true"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+	</RelativeLayout>
+
+	<LinearLayout
+		android:id="@+id/layout_stats"
+		android:visibility="invisible"
+		android:orientation="vertical"
+		android:layout_weight="1"
+		android:layout_width="match_parent"
+		android:layout_height="0dp">
+
+		<include
+			android:id="@+id/layout_stat_walk"
+			layout="@layout/view_moon_stat"/>
+
+		<include
+			android:id="@+id/layout_stat_run"
+			layout="@layout/view_moon_stat"/>
+
+		<include
+			android:id="@+id/layout_stat_bike"
+			layout="@layout/view_moon_stat"/>
+
+	</LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="application_name" translatable="false">To the Moon</string>
+
+	<string name="menu_rate_application">Rate the application</string>
+	<string name="menu_send_feedback">Send feedback</string>
+
+</resources>

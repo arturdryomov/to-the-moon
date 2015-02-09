@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:auto="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<include
+			layout="@layout/view_moon"/>
+
+	</FrameLayout>
+
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:background="@android:color/transparent"
+		auto:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+		auto:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+		android:layout_alignParentTop="true"
+		android:minHeight="?actionBarSize"
+		android:layout_height="?actionBarSize"
+		android:layout_width="match_parent"/>
+
+</RelativeLayout>
