@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:gravity="center"
+		android:paddingTop="16dp"
+		android:paddingBottom="16dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<ImageView
+			android:src="@drawable/ic_google_fit"
+			android:layout_width="96dp"
+			android:layout_height="96dp"/>
+
+		<Space
+			android:layout_width="match_parent"
+			android:layout_height="16dp"/>
+
+		<TextView
+			android:text="This application uses Google Fit to display your journey to the Moon progress, combining fitness activity from various sources."
+			android:gravity="center"
+			android:layout_marginRight="48dp"
+			android:layout_marginLeft="48dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+
+		<Space
+			android:layout_width="match_parent"
+			android:layout_height="24dp"/>
+
+		<Button
+			android:text="Connect to Google Fit"
+			android:textColor="@android:color/white"
+			android:background="@drawable/bg_button"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+	</LinearLayout>
+
+</ScrollView>

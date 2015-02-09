@@ -40,6 +40,7 @@
 	</RelativeLayout>
 
 	<LinearLayout
+		android:gravity="center"
 		android:id="@+id/layout_stats"
 		android:visibility="invisible"
 		android:orientation="vertical"
