@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
-	<LinearLayout
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical"
 		android:gravity="center"
 		android:paddingTop="16dp"
@@ -33,6 +33,7 @@
 			android:layout_height="24dp"/>
 
 		<Button
+			android:id="@+id/button_connect"
 			android:text="Connect to Google Fit"
 			android:textColor="@android:color/white"
 			android:background="@drawable/bg_button"

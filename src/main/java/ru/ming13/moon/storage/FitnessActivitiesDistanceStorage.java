@@ -82,7 +82,7 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 		BusProvider.getBus().post(new ActivityDistancesLoadedEvent(walkingActivityDistance, runningActivityDistance, bikingActivityDistance));
 	}
 
-	public boolean isWalkingActivity(String activity) {
+	private boolean isWalkingActivity(String activity) {
 		List<String> walkingActivities = Arrays.asList(
 			FitnessActivities.WALKING,
 			FitnessActivities.WALKING_NORDIC,
@@ -92,7 +92,7 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 		return walkingActivities.contains(activity);
 	}
 
-	public boolean isRunningActivity(String activity) {
+	private boolean isRunningActivity(String activity) {
 		List<String> runningActivities = Arrays.asList(
 			FitnessActivities.RUNNING,
 			FitnessActivities.RUNNING_JOGGING,
@@ -102,7 +102,7 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 		return runningActivities.contains(activity);
 	}
 
-	public boolean isBikingActivity(String activity) {
+	private boolean isBikingActivity(String activity) {
 		List<String> bikingActivities = Arrays.asList(
 			FitnessActivities.BIKING,
 			FitnessActivities.BIKING_HAND,

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:paddingTop="28dp"
+		android:paddingBottom="28dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<include
+			android:id="@+id/layout_stat_walk"
+			layout="@layout/view_activity_stat"/>
+
+		<include
+			android:id="@+id/layout_stat_run"
+			layout="@layout/view_activity_stat"/>
+
+		<include
+			android:id="@+id/layout_stat_bike"
+			layout="@layout/view_activity_stat"/>
+
+	</LinearLayout>
+
+</ScrollView>

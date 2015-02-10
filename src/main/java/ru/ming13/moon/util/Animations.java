@@ -1,10 +1,12 @@
 package ru.ming13.moon.util;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 public final class Animations
 {
@@ -13,29 +15,68 @@ public final class Animations
 		private Durations() {
 		}
 
-		public static final int MEDIUM = 700;
+		public static final int MEDIUM = 400;
 	}
 
 	private Animations() {
 	}
 
-	public static void scale(@NonNull View view) {
-		Animator animator = ObjectAnimator.ofPropertyValuesHolder(view,
-			PropertyValuesHolder.ofFloat(View.SCALE_X, 0, 1),
-			PropertyValuesHolder.ofFloat(View.SCALE_Y, 0, 1));
+	public static void scaleUp(@NonNull final View view) {
+		view.setVisibility(View.VISIBLE);
 
-		animator.setDuration(Durations.MEDIUM);
-
-		animator.start();
+		getScaleAnimator(view, 0, 1).start();
 	}
 
-	public static void slide(@NonNull View view) {
+	private static Animator getScaleAnimator(View view, float fromScale, float toScale) {
 		Animator animator = ObjectAnimator.ofPropertyValuesHolder(view,
-			PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 1000, 1),
-			PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1));
+			PropertyValuesHolder.ofFloat(View.SCALE_X, fromScale, toScale),
+			PropertyValuesHolder.ofFloat(View.SCALE_Y, fromScale, toScale));
 
 		animator.setDuration(Durations.MEDIUM);
 
-		animator.start();
+		return animator;
+	}
+
+	public static void exchange(@NonNull final View startView, @NonNull final View finishView) {
+		startView.setVisibility(View.VISIBLE);
+		finishView.setVisibility(View.INVISIBLE);
+
+		final Animator startAnimator = getSlidingDownAnimator(startView);
+		final Animator finishAnimator = getSlidingUpAnimator(finishView);
+
+		startAnimator.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationEnd(Animator animator) {
+				startView.setVisibility(View.INVISIBLE);
+				finishView.setVisibility(View.VISIBLE);
+
+				finishAnimator.start();
+			}
+		});
+
+		startAnimator.start();
+	}
+
+	private static Animator getSlidingDownAnimator(@NonNull View view) {
+		View parentView = (View) view.getParent();
+
+		return getSlidingAnimator(view, 0, parentView.getHeight() - view.getTop(), 1, 0);
+	}
+
+	private static Animator getSlidingUpAnimator(@NonNull View view) {
+		View parentView = (View) view.getParent();
+
+		return getSlidingAnimator(view, parentView.getHeight() - view.getTop(), 0, 0, 1);
+	}
+
+	private static Animator getSlidingAnimator(View view, float fromY, float toY, float fromAlpha, float toAlpha) {
+		Animator animator = ObjectAnimator.ofPropertyValuesHolder(view,
+			PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, fromY, toY),
+			PropertyValuesHolder.ofFloat(View.ALPHA, fromAlpha, toAlpha));
+
+		animator.setDuration(Durations.MEDIUM);
+		animator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+		return animator;
 	}
 }

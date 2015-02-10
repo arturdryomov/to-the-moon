@@ -6,8 +6,6 @@
 	<color name="background_accent">@color/background_primary</color>
 
 	<color name="background_button">#dddeb3</color>
-	<color name="background_divider">#1e000000</color>
-	<color name="background_frame">#eeeeee</color>
 	<color name="background_window">#f9f9f9</color>
 
 	<color name="text_primary">#dd000000</color>

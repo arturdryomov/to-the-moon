@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -57,17 +58,25 @@ public class MoonActivity extends ActionBarActivity implements
 	@InjectView(R.id.toolbar)
 	Toolbar toolbar;
 
+	@InjectView(R.id.progress)
+	ProgressBar progressBar;
+
 	@InjectView(R.id.button_share)
 	ImageButton shareButton;
 
 	@InjectView(R.id.layout_stats)
 	ViewGroup statsLayout;
 
+	@InjectView(R.id.layout_connection)
+	ViewGroup connectionLayout;
+
 	private FitnessActivityStatViewHolder walkingStatsViewHolder;
 	private FitnessActivityStatViewHolder runningStatsViewHolder;
 	private FitnessActivityStatViewHolder bikingStatsViewHolder;
 
 	private GoogleApiClient googleApiClient;
+
+	private boolean isGoogleApiFollowingConnection;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,11 +138,8 @@ public class MoonActivity extends ActionBarActivity implements
 		setUpActivityStats(runningStatsViewHolder, event.getRunningActivityDistance());
 		setUpActivityStats(bikingStatsViewHolder, event.getBikingActivityDistance());
 
-		statsLayout.setVisibility(View.VISIBLE);
-		shareButton.setVisibility(View.VISIBLE);
-
-		Animations.slide(statsLayout);
-		Animations.scale(shareButton);
+		Animations.exchange(progressBar, statsLayout);
+		Animations.scaleUp(shareButton);
 	}
 
 	private void setUpActivityStats(FitnessActivityStatViewHolder statViewHolder, FitnessActivityDistance activityDistance) {
@@ -189,7 +195,20 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-		GoogleServices.with(this).resolve(connectionResult);
+		if (isGoogleApiFollowingConnection) {
+			GoogleServices.with(this).resolve(connectionResult);
+		} else {
+			isGoogleApiFollowingConnection = true;
+		}
+
+		Animations.exchange(progressBar, connectionLayout);
+	}
+
+	@OnClick(R.id.button_connect)
+	public void startGoogleConnection() {
+		Animations.exchange(connectionLayout, progressBar);
+
+		googleApiClient.connect();
 	}
 
 	@OnClick(R.id.button_share)
