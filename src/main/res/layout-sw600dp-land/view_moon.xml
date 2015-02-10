@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:auto="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<FrameLayout
+		android:id="@+id/layout_header"
+		android:layout_width="match_parent"
+		android:layout_height="280dp">
+
+		<ImageView
+			android:src="@drawable/bg_moon"
+			android:scaleType="centerCrop"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+	</FrameLayout>
+	
+	<LinearLayout
+		android:id="@+id/layout_footer"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<Space
+			android:layout_weight="1"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"/>
+
+		<android.support.v7.widget.CardView
+			auto:cardElevation="4dp"
+			android:layout_marginTop="180dp"
+			android:layout_alignParentTop="true"
+			android:layout_weight="2"
+			android:layout_width="0dp"
+			android:layout_height="match_parent">
+
+			<ProgressBar
+				android:id="@+id/progress"
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+
+			<FrameLayout
+				android:id="@+id/layout_connection"
+				android:visibility="invisible"
+				android:layout_gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<include
+					layout="@layout/view_connection"/>
+
+			</FrameLayout>
+
+			<FrameLayout
+				android:id="@+id/layout_stats"
+				android:visibility="invisible"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<include
+					layout="@layout/view_activities"/>
+
+			</FrameLayout>
+
+		</android.support.v7.widget.CardView>
+
+		<Space
+			android:layout_weight="1"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"/>
+
+	</LinearLayout>
+
+	<com.melnykov.fab.FloatingActionButton
+		android:id="@+id/button_share"
+		android:visibility="invisible"
+		android:src="@drawable/ic_action_share"
+		auto:fab_colorNormal="@color/background_button"
+		auto:fab_colorPressed="@color/background_button"
+		android:layout_marginBottom="-28dp"
+		android:layout_marginRight="24dp"
+		android:layout_alignBottom="@id/layout_header"
+		android:layout_alignParentRight="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/>
+
+</RelativeLayout>
