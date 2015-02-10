@@ -23,9 +23,12 @@ import com.squareup.otto.Subscribe;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import icepick.Icepick;
+import icepick.Icicle;
 import ru.ming13.moon.R;
 import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
+import ru.ming13.moon.model.FitnessActivityDistances;
 import ru.ming13.moon.storage.FitnessActivitiesDistanceStorage;
 import ru.ming13.moon.model.FitnessActivity;
 import ru.ming13.moon.model.FitnessActivityDistance;
@@ -78,12 +81,17 @@ public class MoonActivity extends ActionBarActivity implements
 
 	private boolean isGoogleApiFollowingConnection;
 
+	@Icicle
+	FitnessActivityDistances fitnessActivityDistances;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected void onCreate(Bundle state) {
+		super.onCreate(state);
 		setContentView(R.layout.activity_moon);
 
 		setUpInjections();
+
+		setUpState(state);
 
 		setUpToolbar();
 
@@ -98,6 +106,10 @@ public class MoonActivity extends ActionBarActivity implements
 		this.bikingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_bike));
 	}
 
+	private void setUpState(Bundle state) {
+		Icepick.restoreInstanceState(this, state);
+	}
+
 	private void setUpToolbar() {
 		setSupportActionBar(toolbar);
 
@@ -105,8 +117,12 @@ public class MoonActivity extends ActionBarActivity implements
 	}
 
 	private void setUpActivityStats() {
-		setUpGoogleApiClient();
-		setUpGoogleApiConnection();
+		if (fitnessActivityDistances == null) {
+			setUpGoogleApiClient();
+			setUpGoogleApiConnection();
+		} else {
+			setUpFitnessActivityStats();
+		}
 	}
 
 	private void setUpGoogleApiClient() {
@@ -134,9 +150,15 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@Subscribe
 	public void onActivityDistancesLoaded(ActivityDistancesLoadedEvent event) {
-		setUpActivityStats(walkingStatsViewHolder, event.getWalkingActivityDistance());
-		setUpActivityStats(runningStatsViewHolder, event.getRunningActivityDistance());
-		setUpActivityStats(bikingStatsViewHolder, event.getBikingActivityDistance());
+		this.fitnessActivityDistances = event.getActivityDistances();
+
+		setUpFitnessActivityStats();
+	}
+
+	private void setUpFitnessActivityStats() {
+		setUpActivityStats(walkingStatsViewHolder, fitnessActivityDistances.getWalkingDistance());
+		setUpActivityStats(runningStatsViewHolder, fitnessActivityDistances.getRunningDistance());
+		setUpActivityStats(bikingStatsViewHolder, fitnessActivityDistances.getBikingDistance());
 
 		Animations.exchange(progressBar, statsLayout);
 		Animations.scaleUp(shareButton);
@@ -280,6 +302,17 @@ public class MoonActivity extends ActionBarActivity implements
 		super.onPause();
 
 		BusProvider.getBus().unregister(this);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle state) {
+		super.onSaveInstanceState(state);
+
+		tearDownState(state);
+	}
+
+	private void tearDownState(Bundle state) {
+		Icepick.saveInstanceState(this, state);
 	}
 
 	@Override

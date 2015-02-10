@@ -21,8 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
-import ru.ming13.moon.model.FitnessActivity;
-import ru.ming13.moon.model.FitnessActivityDistance;
+import ru.ming13.moon.model.FitnessActivityDistances;
 
 public class FitnessActivitiesDistanceStorage implements ResultCallback<DataReadResult>
 {
@@ -53,9 +52,7 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 
 	@Override
 	public void onResult(DataReadResult activitiesResponse) {
-		FitnessActivityDistance walkingActivityDistance = new FitnessActivityDistance(FitnessActivity.WALKING);
-		FitnessActivityDistance runningActivityDistance = new FitnessActivityDistance(FitnessActivity.RUNNING);
-		FitnessActivityDistance bikingActivityDistance = new FitnessActivityDistance(FitnessActivity.BIKING);
+		FitnessActivityDistances activityDistances = new FitnessActivityDistances();
 
 		for (Bucket activityBucket : activitiesResponse.getBuckets()) {
 			String activity = activityBucket.getActivity();
@@ -65,21 +62,21 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 					float activityDistance = activityDataPoint.getValue(Field.FIELD_DISTANCE).asFloat();
 
 					if (isWalkingActivity(activity)) {
-						walkingActivityDistance.plus(activityDistance);
+						activityDistances.getWalkingDistance().plus(activityDistance);
 					}
 
 					if (isRunningActivity(activity)) {
-						runningActivityDistance.plus(activityDistance);
+						activityDistances.getRunningDistance().plus(activityDistance);
 					}
 
 					if (isBikingActivity(activity)) {
-						bikingActivityDistance.plus(activityDistance);
+						activityDistances.getBikingDistance().plus(activityDistance);
 					}
 				}
 			}
 		}
 
-		BusProvider.getBus().post(new ActivityDistancesLoadedEvent(walkingActivityDistance, runningActivityDistance, bikingActivityDistance));
+		BusProvider.getBus().post(new ActivityDistancesLoadedEvent(activityDistances));
 	}
 
 	private boolean isWalkingActivity(String activity) {
