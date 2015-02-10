@@ -195,13 +195,21 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-		if (isGoogleApiFollowingConnection) {
-			GoogleServices.with(this).resolve(connectionResult);
-		} else {
+		if (!isGoogleApiFollowingConnection) {
 			isGoogleApiFollowingConnection = true;
+
+			Animations.exchange(progressBar, connectionLayout);
+
+			return;
 		}
 
-		Animations.exchange(progressBar, connectionLayout);
+		if (connectionResult.hasResolution()) {
+			GoogleServices.with(this).showResolutionAction(connectionResult);
+		} else {
+			GoogleServices.with(this).showResolutionError(connectionResult);
+
+			Animations.exchange(progressBar, connectionLayout);
+		}
 	}
 
 	@OnClick(R.id.button_connect)

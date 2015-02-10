@@ -21,15 +21,7 @@ public final class GoogleServices
 		this.activity = activity;
 	}
 
-	public void resolve(@NonNull ConnectionResult connectionResult) {
-		if (connectionResult.hasResolution()) {
-			showResolutionAction(connectionResult);
-		} else {
-			showResolutionError(connectionResult);
-		}
-	}
-
-	private void showResolutionAction(ConnectionResult connectionResult) {
+	public void showResolutionAction(@NonNull ConnectionResult connectionResult) {
 		try {
 			connectionResult.startResolutionForResult(activity, Intents.Requests.GOOGLE_CONNECTION);
 		} catch (IntentSender.SendIntentException e) {
@@ -37,7 +29,7 @@ public final class GoogleServices
 		}
 	}
 
-	private void showResolutionError(ConnectionResult connectionResult) {
+	public void showResolutionError(@NonNull ConnectionResult connectionResult) {
 		int errorCode = connectionResult.getErrorCode();
 		int requestCode = Intents.Requests.GOOGLE_CONNECTION;
 
