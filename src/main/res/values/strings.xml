@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="application_name" translatable="false">To the Moon</string>
+	<string name="application_name">To the Moon</string>
 
 	<string name="button_connect">Connect to Google Fit</string>
 
