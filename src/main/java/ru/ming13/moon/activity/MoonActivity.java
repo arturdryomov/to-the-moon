@@ -42,7 +42,7 @@ public class MoonActivity extends ActionBarActivity implements
 	GoogleApiClient.ConnectionCallbacks,
 	GoogleApiClient.OnConnectionFailedListener
 {
-	static final class FitnessActivityStatViewHolder
+	static final class FitnessActivityViewHolder
 	{
 		@InjectView(R.id.image_activity)
 		ImageView activityIcon;
@@ -53,8 +53,8 @@ public class MoonActivity extends ActionBarActivity implements
 		@InjectView(R.id.text_activity_description)
 		TextView activityDescription;
 
-		public FitnessActivityStatViewHolder(View moonStatView) {
-			ButterKnife.inject(this, moonStatView);
+		public FitnessActivityViewHolder(View activityView) {
+			ButterKnife.inject(this, activityView);
 		}
 	}
 
@@ -73,13 +73,13 @@ public class MoonActivity extends ActionBarActivity implements
 	@InjectView(R.id.layout_connection)
 	ViewGroup connectionLayout;
 
-	private FitnessActivityStatViewHolder walkingStatsViewHolder;
-	private FitnessActivityStatViewHolder runningStatsViewHolder;
-	private FitnessActivityStatViewHolder bikingStatsViewHolder;
+	private FitnessActivityViewHolder walkingActivityViewHolder;
+	private FitnessActivityViewHolder runningActivityViewHolder;
+	private FitnessActivityViewHolder bikingActivityViewHolder;
 
 	private GoogleApiClient googleApiClient;
 
-	private boolean isGoogleApiFollowingConnection;
+	private boolean isGoogleApiRepeatingConnection;
 
 	@Icicle
 	FitnessActivityDistances fitnessActivityDistances;
@@ -94,16 +94,16 @@ public class MoonActivity extends ActionBarActivity implements
 		setUpState(state);
 
 		setUpToolbar();
-//fitnessActivityDistances = new FitnessActivityDistances();
+
 		setUpActivityStats();
 	}
 
 	private void setUpInjections() {
 		ButterKnife.inject(this);
 
-		walkingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_walk));
-		runningStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_run));
-		bikingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_bike));
+		walkingActivityViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_walk));
+		runningActivityViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_run));
+		bikingActivityViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_bike));
 	}
 
 	private void setUpState(Bundle state) {
@@ -121,16 +121,12 @@ public class MoonActivity extends ActionBarActivity implements
 			setUpGoogleApiClient();
 			setUpGoogleApiConnection();
 		} else {
-			setUpFitnessActivityStats();
+			setUpFitnessActivities();
 		}
 	}
 
 	private void setUpGoogleApiClient() {
-		this.googleApiClient = getGoogleApiClient();
-	}
-
-	private GoogleApiClient getGoogleApiClient() {
-		return new GoogleApiClient.Builder(this)
+		this.googleApiClient = new GoogleApiClient.Builder(this)
 			.addApi(Fitness.API)
 			.addScope(Fitness.SCOPE_ACTIVITY_READ)
 			.addScope(Fitness.SCOPE_LOCATION_READ)
@@ -152,32 +148,32 @@ public class MoonActivity extends ActionBarActivity implements
 	public void onActivityDistancesLoaded(ActivityDistancesLoadedEvent event) {
 		this.fitnessActivityDistances = event.getActivityDistances();
 
-		setUpFitnessActivityStats();
+		setUpFitnessActivities();
 	}
 
-	private void setUpFitnessActivityStats() {
-		setUpActivityStats(walkingStatsViewHolder, fitnessActivityDistances.getWalkingDistance());
-		setUpActivityStats(runningStatsViewHolder, fitnessActivityDistances.getRunningDistance());
-		setUpActivityStats(bikingStatsViewHolder, fitnessActivityDistances.getBikingDistance());
+	private void setUpFitnessActivities() {
+		setUpFitnessActivity(walkingActivityViewHolder, fitnessActivityDistances.getWalkingDistance());
+		setUpFitnessActivity(runningActivityViewHolder, fitnessActivityDistances.getRunningDistance());
+		setUpFitnessActivity(bikingActivityViewHolder, fitnessActivityDistances.getBikingDistance());
 
 		Animations.exchange(progressBar, statsLayout);
 		Animations.scaleUp(shareButton);
 	}
 
-	private void setUpActivityStats(FitnessActivityStatViewHolder statViewHolder, FitnessActivityDistance activityDistance) {
-		statViewHolder.activityIcon.setImageResource(
+	private void setUpFitnessActivity(FitnessActivityViewHolder activityViewHolder, FitnessActivityDistance activityDistance) {
+		activityViewHolder.activityIcon.setImageResource(
 			getFitnessActivityIcon(activityDistance.getActivity()));
 
-		statViewHolder.activityTitle.setText(
+		activityViewHolder.activityTitle.setText(
 			getString(R.string.mask_activity_title, Formatter.formatDistance(activityDistance.getDistance())));
 
-		statViewHolder.activityDescription.setText(
+		activityViewHolder.activityDescription.setText(
 			getString(R.string.mask_activity_description, Formatter.formatPercent(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
 	}
 
 	@DrawableRes
-	private int getFitnessActivityIcon(FitnessActivity fitnessActivity) {
-		switch (fitnessActivity) {
+	private int getFitnessActivityIcon(FitnessActivity activity) {
+		switch (activity) {
 			case WALKING:
 				return R.drawable.ic_description_walk;
 
@@ -222,8 +218,8 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-		if (!isGoogleApiFollowingConnection) {
-			isGoogleApiFollowingConnection = true;
+		if (!isGoogleApiRepeatingConnection) {
+			isGoogleApiRepeatingConnection = true;
 
 			Animations.exchange(progressBar, connectionLayout);
 
