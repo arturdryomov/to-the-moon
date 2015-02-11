@@ -7,7 +7,7 @@
 	<FrameLayout
 		android:id="@+id/layout_header"
 		android:layout_width="match_parent"
-		android:layout_height="280dp">
+		android:layout_height="@dimen/height_header">
 
 		<ImageView
 			android:src="@drawable/bg_moon"
@@ -29,9 +29,8 @@
 			android:layout_height="match_parent"/>
 
 		<android.support.v7.widget.CardView
-			auto:cardElevation="4dp"
+			auto:cardElevation="8dp"
 			android:layout_marginTop="180dp"
-			android:layout_alignParentTop="true"
 			android:layout_weight="2"
 			android:layout_width="0dp"
 			android:layout_height="match_parent">
@@ -81,7 +80,7 @@
 		auto:fab_colorNormal="@color/background_button"
 		auto:fab_colorPressed="@color/background_button"
 		android:layout_marginBottom="-28dp"
-		android:layout_marginRight="24dp"
+		android:layout_marginRight="@dimen/padding_horizontal"
 		android:layout_alignBottom="@id/layout_header"
 		android:layout_alignParentRight="true"
 		android:layout_width="wrap_content"

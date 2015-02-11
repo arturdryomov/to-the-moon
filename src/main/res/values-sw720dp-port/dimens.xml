@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<dimen name="height_header">420dp</dimen>
+
+	<dimen name="size_google_fit">140dp</dimen>
+
+</resources>

@@ -13,15 +13,15 @@
 
 		<ImageView
 			android:src="@drawable/ic_google_fit"
-			android:layout_width="96dp"
-			android:layout_height="96dp"/>
+			android:layout_width="@dimen/size_google_fit"
+			android:layout_height="@dimen/size_google_fit"/>
 
 		<Space
 			android:layout_width="match_parent"
 			android:layout_height="16dp"/>
 
 		<TextView
-			android:text="This application uses Google Fit to display your journey to the Moon progress, combining fitness activity from various sources."
+			android:text="@string/message_connect"
 			android:gravity="center"
 			android:layout_marginRight="48dp"
 			android:layout_marginLeft="48dp"
@@ -34,7 +34,7 @@
 
 		<Button
 			android:id="@+id/button_connect"
-			android:text="Connect to Google Fit"
+			android:text="@string/button_connect"
 			android:textColor="@android:color/white"
 			android:background="@drawable/bg_button"
 			android:paddingLeft="16dp"

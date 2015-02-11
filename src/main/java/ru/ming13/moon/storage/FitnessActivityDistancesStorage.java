@@ -23,15 +23,15 @@ import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
 import ru.ming13.moon.model.FitnessActivityDistances;
 
-public class FitnessActivitiesDistanceStorage implements ResultCallback<DataReadResult>
+public class FitnessActivityDistancesStorage implements ResultCallback<DataReadResult>
 {
 	private final GoogleApiClient apiClient;
 
-	public static FitnessActivitiesDistanceStorage with(@NonNull GoogleApiClient apiClient) {
-		return new FitnessActivitiesDistanceStorage(apiClient);
+	public static FitnessActivityDistancesStorage with(@NonNull GoogleApiClient apiClient) {
+		return new FitnessActivityDistancesStorage(apiClient);
 	}
 
-	private FitnessActivitiesDistanceStorage(GoogleApiClient apiClient) {
+	private FitnessActivityDistancesStorage(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
 	}
 
@@ -58,6 +58,7 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 			String activity = activityBucket.getActivity();
 
 			for (DataSet activityDataSet : activityBucket.getDataSets()) {
+
 				for (DataPoint activityDataPoint : activityDataSet.getDataPoints()) {
 					float activityDistance = activityDataPoint.getValue(Field.FIELD_DISTANCE).asFloat();
 
@@ -82,8 +83,8 @@ public class FitnessActivitiesDistanceStorage implements ResultCallback<DataRead
 	private boolean isWalkingActivity(String activity) {
 		List<String> walkingActivities = Arrays.asList(
 			FitnessActivities.WALKING,
-			FitnessActivities.WALKING_NORDIC,
 			FitnessActivities.WALKING_FITNESS,
+			FitnessActivities.WALKING_NORDIC,
 			FitnessActivities.WALKING_TREADMILL);
 
 		return walkingActivities.contains(activity);

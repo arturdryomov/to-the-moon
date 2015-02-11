@@ -29,12 +29,12 @@ import ru.ming13.moon.R;
 import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
 import ru.ming13.moon.model.FitnessActivityDistances;
-import ru.ming13.moon.storage.FitnessActivitiesDistanceStorage;
+import ru.ming13.moon.storage.FitnessActivityDistancesStorage;
 import ru.ming13.moon.model.FitnessActivity;
 import ru.ming13.moon.model.FitnessActivityDistance;
 import ru.ming13.moon.util.Animations;
 import ru.ming13.moon.util.DistanceCalculator;
-import ru.ming13.moon.util.Formatters;
+import ru.ming13.moon.util.Formatter;
 import ru.ming13.moon.util.GoogleServices;
 import ru.ming13.moon.util.Intents;
 
@@ -94,16 +94,16 @@ public class MoonActivity extends ActionBarActivity implements
 		setUpState(state);
 
 		setUpToolbar();
-
+//fitnessActivityDistances = new FitnessActivityDistances();
 		setUpActivityStats();
 	}
 
 	private void setUpInjections() {
 		ButterKnife.inject(this);
 
-		this.walkingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_walk));
-		this.runningStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_run));
-		this.bikingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_bike));
+		walkingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_walk));
+		runningStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_run));
+		bikingStatsViewHolder = new FitnessActivityStatViewHolder(findViewById(R.id.layout_stat_bike));
 	}
 
 	private void setUpState(Bundle state) {
@@ -145,7 +145,7 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		FitnessActivitiesDistanceStorage.with(googleApiClient).readActivityDistances();
+		FitnessActivityDistancesStorage.with(googleApiClient).readActivityDistances();
 	}
 
 	@Subscribe
@@ -165,9 +165,14 @@ public class MoonActivity extends ActionBarActivity implements
 	}
 
 	private void setUpActivityStats(FitnessActivityStatViewHolder statViewHolder, FitnessActivityDistance activityDistance) {
-		statViewHolder.activityIcon.setImageResource(getFitnessActivityIcon(activityDistance.getActivity()));
-		statViewHolder.activityTitle.setText(String.format("%.0f meters", activityDistance.getDistance()));
-		statViewHolder.activityDescription.setText(String.format("%s of the way to the Moon", Formatters.formatPercent(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
+		statViewHolder.activityIcon.setImageResource(
+			getFitnessActivityIcon(activityDistance.getActivity()));
+
+		statViewHolder.activityTitle.setText(
+			getString(R.string.mask_activity_title, Formatter.formatDistance(activityDistance.getDistance())));
+
+		statViewHolder.activityDescription.setText(
+			getString(R.string.mask_activity_description, Formatter.formatPercent(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
 	}
 
 	@DrawableRes
