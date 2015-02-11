@@ -12,15 +12,15 @@
 		
 		<include
 			android:id="@+id/layout_activity_walk"
-			layout="@layout/view_activity_stat"/>
+			layout="@layout/view_activity"/>
 
 		<include
 			android:id="@+id/layout_activity_run"
-			layout="@layout/view_activity_stat"/>
+			layout="@layout/view_activity"/>
 
 		<include
 			android:id="@+id/layout_activity_bike"
-			layout="@layout/view_activity_stat"/>
+			layout="@layout/view_activity"/>
 
 	</LinearLayout>
 

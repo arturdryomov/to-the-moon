@@ -3,14 +3,14 @@
 
 	<string name="application_name" translatable="false">To the Moon</string>
 
+	<string name="button_connect">Connect to Google Fit</string>
+
 	<string name="menu_rate_application">Rate the application</string>
 	<string name="menu_send_feedback">Send feedback</string>
 
+	<string name="message_connect">This application uses Google Fit to display your journey to the Moon progress, combining fitness activity from various sources.</string>
+
 	<string name="mask_activity_title">%1$s meters</string>
 	<string name="mask_activity_description">%1$s of the way to the Moon</string>
-	
-	<string name="button_connect">Connect to Google Fit</string>
-	
-	<string name="message_connect">This application uses Google Fit to display your journey to the Moon progress, combining fitness activity from various sources.</string>
 
 </resources>

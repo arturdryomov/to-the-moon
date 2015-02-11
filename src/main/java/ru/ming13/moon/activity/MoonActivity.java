@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
 import icepick.Icepick;
 import icepick.Icicle;
 import ru.ming13.moon.R;
-import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
+import ru.ming13.moon.bus.FitnessActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
 import ru.ming13.moon.model.FitnessActivityDistances;
 import ru.ming13.moon.storage.FitnessActivityDistancesStorage;
@@ -67,22 +68,22 @@ public class MoonActivity extends ActionBarActivity implements
 	@InjectView(R.id.button_share)
 	ImageButton shareButton;
 
-	@InjectView(R.id.layout_stats)
-	ViewGroup statsLayout;
+	@InjectView(R.id.layout_activities)
+	ViewGroup activitiesLayout;
 
 	@InjectView(R.id.layout_connection)
 	ViewGroup connectionLayout;
 
-	private FitnessActivityViewHolder walkingActivityViewHolder;
-	private FitnessActivityViewHolder runningActivityViewHolder;
-	private FitnessActivityViewHolder bikingActivityViewHolder;
+	private FitnessActivityViewHolder walkingViewHolder;
+	private FitnessActivityViewHolder runningViewHolder;
+	private FitnessActivityViewHolder bikingViewHolder;
 
 	private GoogleApiClient googleApiClient;
 
 	private boolean isGoogleApiRepeatingConnection;
 
 	@Icicle
-	FitnessActivityDistances fitnessActivityDistances;
+	FitnessActivityDistances activityDistances;
 
 	@Override
 	protected void onCreate(Bundle state) {
@@ -101,9 +102,9 @@ public class MoonActivity extends ActionBarActivity implements
 	private void setUpInjections() {
 		ButterKnife.inject(this);
 
-		walkingActivityViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_walk));
-		runningActivityViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_run));
-		bikingActivityViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_bike));
+		walkingViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_walk));
+		runningViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_run));
+		bikingViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_bike));
 	}
 
 	private void setUpState(Bundle state) {
@@ -117,7 +118,7 @@ public class MoonActivity extends ActionBarActivity implements
 	}
 
 	private void setUpActivityStats() {
-		if (fitnessActivityDistances == null) {
+		if (activityDistances == null) {
 			setUpGoogleApiClient();
 			setUpGoogleApiConnection();
 		} else {
@@ -145,18 +146,18 @@ public class MoonActivity extends ActionBarActivity implements
 	}
 
 	@Subscribe
-	public void onActivityDistancesLoaded(ActivityDistancesLoadedEvent event) {
-		this.fitnessActivityDistances = event.getActivityDistances();
+	public void onActivityDistancesLoaded(FitnessActivityDistancesLoadedEvent event) {
+		this.activityDistances = event.getActivityDistances();
 
 		setUpFitnessActivities();
 	}
 
 	private void setUpFitnessActivities() {
-		setUpFitnessActivity(walkingActivityViewHolder, fitnessActivityDistances.getWalkingDistance());
-		setUpFitnessActivity(runningActivityViewHolder, fitnessActivityDistances.getRunningDistance());
-		setUpFitnessActivity(bikingActivityViewHolder, fitnessActivityDistances.getBikingDistance());
+		setUpFitnessActivity(walkingViewHolder, activityDistances.getWalkingDistance());
+		setUpFitnessActivity(runningViewHolder, activityDistances.getRunningDistance());
+		setUpFitnessActivity(bikingViewHolder, activityDistances.getBikingDistance());
 
-		Animations.exchange(progressBar, statsLayout);
+		Animations.exchange(progressBar, activitiesLayout);
 		Animations.scaleUp(shareButton);
 	}
 
@@ -165,10 +166,10 @@ public class MoonActivity extends ActionBarActivity implements
 			getFitnessActivityIcon(activityDistance.getActivity()));
 
 		activityViewHolder.activityTitle.setText(
-			getString(R.string.mask_activity_title, Formatter.formatDistance(activityDistance.getDistance())));
+			getString(R.string.mask_activity_title, Formatter.get().formatDistance(activityDistance.getDistance())));
 
 		activityViewHolder.activityDescription.setText(
-			getString(R.string.mask_activity_description, Formatter.formatPercent(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
+			getString(R.string.mask_activity_description, Formatter.get().formatPercentage(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
 	}
 
 	@DrawableRes
@@ -236,7 +237,7 @@ public class MoonActivity extends ActionBarActivity implements
 	}
 
 	@OnClick(R.id.button_connect)
-	public void startGoogleConnection() {
+	public void setUpGoogleApiConnection(Button connectionButton) {
 		Animations.exchange(connectionLayout, progressBar);
 
 		googleApiClient.connect();

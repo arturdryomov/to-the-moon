@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import ru.ming13.moon.bus.ActivityDistancesLoadedEvent;
+import ru.ming13.moon.bus.FitnessActivityDistancesLoadedEvent;
 import ru.ming13.moon.bus.BusProvider;
 import ru.ming13.moon.model.FitnessActivityDistances;
 
@@ -77,7 +77,7 @@ public class FitnessActivityDistancesStorage implements ResultCallback<DataReadR
 			}
 		}
 
-		BusProvider.getBus().post(new ActivityDistancesLoadedEvent(activityDistances));
+		BusProvider.getBus().post(new FitnessActivityDistancesLoadedEvent(activityDistances));
 	}
 
 	private boolean isWalkingActivity(String activity) {

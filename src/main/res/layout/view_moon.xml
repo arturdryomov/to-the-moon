@@ -42,7 +42,7 @@
 		</FrameLayout>
 
 		<FrameLayout
-			android:id="@+id/layout_stats"
+			android:id="@+id/layout_activities"
 			android:visibility="invisible"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
