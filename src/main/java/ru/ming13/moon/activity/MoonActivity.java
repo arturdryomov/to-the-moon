@@ -102,9 +102,9 @@ public class MoonActivity extends ActionBarActivity implements
 	private void setUpInjections() {
 		ButterKnife.inject(this);
 
-		walkingViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_walk));
-		runningViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_run));
-		bikingViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_bike));
+		walkingViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_walking));
+		runningViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_running));
+		bikingViewHolder = new FitnessActivityViewHolder(findViewById(R.id.layout_activity_biking));
 	}
 
 	private void setUpState(Bundle state) {
@@ -166,10 +166,11 @@ public class MoonActivity extends ActionBarActivity implements
 			getFitnessActivityIcon(activityDistance.getActivity()));
 
 		activityViewHolder.activityTitle.setText(
-			getString(R.string.mask_activity_title, Formatter.get().formatDistance(activityDistance.getDistance())));
+			Formatter.with(this).formatDistance(activityDistance.getDistance()));
 
 		activityViewHolder.activityDescription.setText(
-			getString(R.string.mask_activity_description, Formatter.get().formatPercentage(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
+			getString(R.string.mask_distance_moon,
+			Formatter.with(this).formatPercentage(DistanceCalculator.calculateMoonDistancePercentage(activityDistance.getDistance()))));
 	}
 
 	@DrawableRes
@@ -245,7 +246,15 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@OnClick(R.id.button_share)
 	public void startStatsSharing() {
-		Intent intent = Intents.Builder.with(this).buildShareIntent("Moon!");
+		String sharingMessage = getString(R.string.mask_sharing,
+			Formatter.with(this).formatPercentage(
+				DistanceCalculator.calculateMoonDistancePercentage(activityDistances.getWalkingDistance().getDistance())),
+			Formatter.with(this).formatPercentage(
+				DistanceCalculator.calculateMoonDistancePercentage(activityDistances.getRunningDistance().getDistance())),
+			Formatter.with(this).formatPercentage(
+				DistanceCalculator.calculateMoonDistancePercentage(activityDistances.getBikingDistance().getDistance())));
+
+		Intent intent = Intents.Builder.with(this).buildShareIntent(sharingMessage);
 		startActivity(intent);
 	}
 

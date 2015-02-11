@@ -1,18 +1,27 @@
 package ru.ming13.moon.util;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+
 import java.text.Format;
 import java.text.NumberFormat;
 
+import ru.ming13.moon.R;
+
 public final class Formatter
 {
+	private final Context context;
+
 	private final Format distanceFormatter;
 	private final Format percentageFormatter;
 
-	public static Formatter get() {
-		return new Formatter();
+	public static Formatter with(@NonNull Context context) {
+		return new Formatter(context);
 	}
 
-	private Formatter() {
+	private Formatter(Context context) {
+		this.context = context.getApplicationContext();
+
 		this.distanceFormatter = getDistanceFormatter();
 		this.percentageFormatter = getPercentageFormatter();
 	}
@@ -30,7 +39,7 @@ public final class Formatter
 	}
 
 	public String formatDistance(double distance) {
-		return distanceFormatter.format((int) distance);
+		return context.getString(R.string.mask_distance, distanceFormatter.format(distance));
 	}
 
 	public String formatPercentage(double percentage) {

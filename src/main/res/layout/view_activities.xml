@@ -11,15 +11,15 @@
 		android:layout_height="wrap_content">
 		
 		<include
-			android:id="@+id/layout_activity_walk"
+			android:id="@+id/layout_activity_walking"
 			layout="@layout/view_activity"/>
 
 		<include
-			android:id="@+id/layout_activity_run"
+			android:id="@+id/layout_activity_running"
 			layout="@layout/view_activity"/>
 
 		<include
-			android:id="@+id/layout_activity_bike"
+			android:id="@+id/layout_activity_biking"
 			layout="@layout/view_activity"/>
 
 	</LinearLayout>

@@ -10,7 +10,8 @@
 
 	<string name="message_connect">This application uses Google Fit to display your journey to the Moon progress, combining fitness activity from various sources.</string>
 
-	<string name="mask_activity_title">%1$s meters</string>
-	<string name="mask_activity_description">%1$s of the way to the Moon</string>
+	<string name="mask_distance">%1$s m</string>
+	<string name="mask_distance_moon">%1$s of the way to the Moon</string>
+	<string name="mask_sharing">I’m on my way to the Moon!\n\n%1$s of the way via walking, %2$s via running and %3$s via biking.</string>
 
 </resources>
