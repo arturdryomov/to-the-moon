@@ -4,6 +4,7 @@
 	android:installLocation="auto">
 
 	<application
+		android:icon="@mipmap/ic_launcher"
 		android:label="@string/application_name"
 		android:name=".MoonApplication"
 		android:theme="@style/Theme.Moon">
