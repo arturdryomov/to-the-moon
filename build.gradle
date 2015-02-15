@@ -26,6 +26,9 @@ android {
 
         minSdkVersion 14
         targetSdkVersion 21
+
+        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
+        resConfigs "en"
     }
 
     packagingOptions {
