@@ -208,6 +208,8 @@ public class MoonActivity extends ActionBarActivity implements
 		if (isGoogleApiClientConnected()) {
 			googleApiClient.disconnect();
 		}
+
+		Animations.exchange(progressBar, connectionLayout);
 	}
 
 	private boolean isGoogleApiClientConnected() {
