@@ -27,12 +27,47 @@ public class FitnessActivityDistancesStorage implements ResultCallback<DataReadR
 {
 	private final GoogleApiClient apiClient;
 
+	private final List<String> walkingActivities;
+	private final List<String> runningActivities;
+	private final List<String> bikingActivities;
+
 	public static FitnessActivityDistancesStorage with(@NonNull GoogleApiClient apiClient) {
 		return new FitnessActivityDistancesStorage(apiClient);
 	}
 
 	private FitnessActivityDistancesStorage(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
+
+		this.walkingActivities = getWalkingActivities();
+		this.runningActivities = getRunningActivities();
+		this.bikingActivities = getBikingActivities();
+	}
+
+	private List<String> getWalkingActivities() {
+		return Arrays.asList(
+			FitnessActivities.WALKING,
+			FitnessActivities.WALKING_FITNESS,
+			FitnessActivities.WALKING_NORDIC,
+			FitnessActivities.WALKING_TREADMILL);
+	}
+
+	private List<String> getRunningActivities() {
+		return Arrays.asList(
+			FitnessActivities.RUNNING,
+			FitnessActivities.RUNNING_JOGGING,
+			FitnessActivities.RUNNING_SAND,
+			FitnessActivities.RUNNING_TREADMILL);
+	}
+
+	private List<String> getBikingActivities() {
+		return Arrays.asList(
+			FitnessActivities.BIKING,
+			FitnessActivities.BIKING_HAND,
+			FitnessActivities.BIKING_MOUNTAIN,
+			FitnessActivities.BIKING_ROAD,
+			FitnessActivities.BIKING_SPINNING,
+			FitnessActivities.BIKING_STATIONARY,
+			FitnessActivities.BIKING_UTILITY);
 	}
 
 	public void readActivityDistances() {
@@ -62,54 +97,24 @@ public class FitnessActivityDistancesStorage implements ResultCallback<DataReadR
 				for (DataPoint activityDataPoint : activityDataSet.getDataPoints()) {
 					float activityDistance = activityDataPoint.getValue(Field.FIELD_DISTANCE).asFloat();
 
-					if (isWalkingActivity(activity)) {
+					if (walkingActivities.contains(activity)) {
 						activityDistances.getWalkingDistance().plus(activityDistance);
+						continue;
 					}
 
-					if (isRunningActivity(activity)) {
+					if (runningActivities.contains(activity)) {
 						activityDistances.getRunningDistance().plus(activityDistance);
+						continue;
 					}
 
-					if (isBikingActivity(activity)) {
+					if (bikingActivities.contains(activity)) {
 						activityDistances.getBikingDistance().plus(activityDistance);
+						continue;
 					}
 				}
 			}
 		}
 
 		BusProvider.getBus().post(new FitnessActivityDistancesLoadedEvent(activityDistances));
-	}
-
-	private boolean isWalkingActivity(String activity) {
-		List<String> walkingActivities = Arrays.asList(
-			FitnessActivities.WALKING,
-			FitnessActivities.WALKING_FITNESS,
-			FitnessActivities.WALKING_NORDIC,
-			FitnessActivities.WALKING_TREADMILL);
-
-		return walkingActivities.contains(activity);
-	}
-
-	private boolean isRunningActivity(String activity) {
-		List<String> runningActivities = Arrays.asList(
-			FitnessActivities.RUNNING,
-			FitnessActivities.RUNNING_JOGGING,
-			FitnessActivities.RUNNING_SAND,
-			FitnessActivities.RUNNING_TREADMILL);
-
-		return runningActivities.contains(activity);
-	}
-
-	private boolean isBikingActivity(String activity) {
-		List<String> bikingActivities = Arrays.asList(
-			FitnessActivities.BIKING,
-			FitnessActivities.BIKING_HAND,
-			FitnessActivities.BIKING_MOUNTAIN,
-			FitnessActivities.BIKING_ROAD,
-			FitnessActivities.BIKING_SPINNING,
-			FitnessActivities.BIKING_STATIONARY,
-			FitnessActivities.BIKING_UTILITY);
-
-		return bikingActivities.contains(activity);
 	}
 }

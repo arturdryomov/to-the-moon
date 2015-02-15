@@ -127,7 +127,7 @@ public class MoonActivity extends ActionBarActivity implements
 	}
 
 	private void setUpGoogleApiClient() {
-		this.googleApiClient = new GoogleApiClient.Builder(this)
+		googleApiClient = new GoogleApiClient.Builder(this)
 			.addApi(Fitness.API)
 			.addScope(Fitness.SCOPE_ACTIVITY_READ)
 			.addScope(Fitness.SCOPE_LOCATION_READ)
@@ -177,13 +177,13 @@ public class MoonActivity extends ActionBarActivity implements
 	private int getFitnessActivityIcon(FitnessActivity activity) {
 		switch (activity) {
 			case WALKING:
-				return R.drawable.ic_description_walk;
+				return R.drawable.ic_description_walking;
 
 			case RUNNING:
-				return R.drawable.ic_description_run;
+				return R.drawable.ic_description_running;
 
 			case BIKING:
-				return R.drawable.ic_description_bike;
+				return R.drawable.ic_description_biking;
 
 			default:
 				return android.R.color.transparent;
@@ -228,10 +228,12 @@ public class MoonActivity extends ActionBarActivity implements
 			return;
 		}
 
-		if (connectionResult.hasResolution()) {
-			GoogleServices.with(this).showResolutionAction(connectionResult);
+		GoogleServices googleServices = GoogleServices.with(this);
+
+		if (googleServices.canResolve(connectionResult)) {
+			googleServices.showResolutionAction(connectionResult);
 		} else {
-			GoogleServices.with(this).showResolutionError(connectionResult);
+			googleServices.showResolutionError(connectionResult);
 
 			Animations.exchange(progressBar, connectionLayout);
 		}

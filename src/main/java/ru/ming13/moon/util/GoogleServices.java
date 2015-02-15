@@ -21,6 +21,10 @@ public final class GoogleServices
 		this.activity = activity;
 	}
 
+	public boolean canResolve(@NonNull ConnectionResult connectionResult) {
+		return connectionResult.hasResolution();
+	}
+
 	public void showResolutionAction(@NonNull ConnectionResult connectionResult) {
 		try {
 			connectionResult.startResolutionForResult(activity, Intents.Requests.GOOGLE_CONNECTION);
