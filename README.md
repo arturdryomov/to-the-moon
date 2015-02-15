@@ -1,4 +1,4 @@
-# Gambit
+# To the Moon
 
 This repository contains the source code for the To the Moon Android app.
 
