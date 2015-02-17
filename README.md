@@ -20,8 +20,8 @@ $ ./gradlew clean assembleDebug
 The application uses some open source libraries.
 
 * [Bundler][Bundler link]
-* [Dart][Dart link]
 * [Butter Knife][Butter Knife link]
+* [Dart][Dart link]
 * [Floating Action Button][Floating Action Button link]
 * [Icepick][Icepick link]
 * [Otto][Otto link]
