@@ -1,6 +1,7 @@
 # To the Moon
 
-This repository contains the source code for the To the Moon Android app.
+This repository contains the source code for the To the Moon Android app
+[available on Google Play][Google Play link].
 
 > I have run 10 miles a day, every day, for 18 years.
 > That’s 65 thousand miles. A third of the way to the Moon.
@@ -32,6 +33,7 @@ The application uses some open source libraries.
 
 
   [Apache link]: http://www.apache.org/licenses/LICENSE-2.0.html
+  [Google Play link]: https://play.google.com/store/apps/details?id=ru.ming13.moon
 
   [Bundler link]: https://github.com/f2prateek/bundler
   [Butter Knife link]: https://github.com/JakeWharton/butterknife
