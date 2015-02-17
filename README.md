@@ -7,6 +7,8 @@ This repository contains the source code for the To the Moon Android app
 > That’s 65 thousand miles. A third of the way to the Moon.
 > My goal is to run to the Moon. — Chris Traeger
 
+[![Screenshot][Screenshot image]][Google Play link]
+
 ## License
 
 * [Apache Version 2.0][Apache link]
@@ -41,3 +43,5 @@ The application uses some open source libraries.
   [Floating Action Button link]: https://github.com/makovkastar/FloatingActionButton
   [Icepick link]: https://github.com/frankiesardo/icepick
   [Otto link]: https://github.com/square/otto
+  
+  [Screenshot image]: https://cloud.githubusercontent.com/assets/200401/6227277/98542f34-b6ae-11e4-8e41-d55c4902eb0f.png
