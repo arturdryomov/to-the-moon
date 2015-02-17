@@ -6,6 +6,10 @@ This repository contains the source code for the To the Moon Android app.
 > That’s 65 thousand miles. A third of the way to the Moon.
 > My goal is to run to the Moon. — Chris Traeger
 
+## License
+
+* [Apache Version 2.0][Apache link]
+
 ## Building
 
 You will need JDK 1.7+ installed.
@@ -26,6 +30,8 @@ The application uses some open source libraries.
 * [Icepick][Icepick link]
 * [Otto][Otto link]
 
+
+  [Apache link]: http://www.apache.org/licenses/LICENSE-2.0.html
 
   [Bundler link]: https://github.com/f2prateek/bundler
   [Butter Knife link]: https://github.com/JakeWharton/butterknife
