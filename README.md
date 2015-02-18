@@ -47,5 +47,5 @@ The application uses some open source libraries.
   [Icepick link]: https://github.com/frankiesardo/icepick
   [Otto link]: https://github.com/square/otto
   
-  [Screenshot image]: https://cloud.githubusercontent.com/assets/200401/6227277/98542f34-b6ae-11e4-8e41-d55c4902eb0f.png
+  [Screenshot image]: https://cloud.githubusercontent.com/assets/200401/6248504/70a466fa-b791-11e4-8297-6c79bc3649d6.png
   [Travis image]: https://travis-ci.org/ming13/to-the-moon.svg?branch=master
