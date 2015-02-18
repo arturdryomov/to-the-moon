@@ -3,11 +3,11 @@ language: android
 jdk:
   - openjdk7
 
+script:
+  - ./gradlew clean assembleDebug
+
 sudo: false
 
 cache:
   directories:
     - ${HOME}/.gradle/caches/
-
-script:
-  - ./gradlew clean assembleDebug
