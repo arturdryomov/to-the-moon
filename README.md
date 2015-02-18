@@ -15,6 +15,8 @@ This repository contains the source code for the To the Moon Android app
 
 ## Building
 
+[![Travis Status][Travis image]][Travis link]
+
 You will need JDK 1.7+ installed.
 Gradle, Android SDK and all dependencies will be downloaded automatically.
 
@@ -36,6 +38,7 @@ The application uses some open source libraries.
 
   [Apache link]: http://www.apache.org/licenses/LICENSE-2.0.html
   [Google Play link]: https://play.google.com/store/apps/details?id=ru.ming13.moon
+  [Travis link]: https://travis-ci.org/ming13/to-the-moon
 
   [Bundler link]: https://github.com/f2prateek/bundler
   [Butter Knife link]: https://github.com/JakeWharton/butterknife
@@ -45,3 +48,4 @@ The application uses some open source libraries.
   [Otto link]: https://github.com/square/otto
   
   [Screenshot image]: https://cloud.githubusercontent.com/assets/200401/6227277/98542f34-b6ae-11e4-8e41-d55c4902eb0f.png
+  [Travis image]: https://travis-ci.org/ming13/to-the-moon.svg?branch=master
