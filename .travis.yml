@@ -1,8 +1,7 @@
 language: android
 
 jdk:
-  - oraclejdk7
-  - oraclejdk8
+  - openjdk7
 
 sudo: false
 
@@ -11,4 +10,4 @@ cache:
     - ${HOME}/.gradle/caches/
 
 script:
-  ./gradlew clean assembleDebug
+  - ./gradlew clean assembleDebug
