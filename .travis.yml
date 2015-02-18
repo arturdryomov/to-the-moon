@@ -1,4 +1,14 @@
 language: android
 
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+
+sudo: false
+
+cache:
+  directories:
+    - ${HOME}/.gradle/caches/
+
 script:
   ./gradlew clean assembleDebug
