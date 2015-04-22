@@ -20,7 +20,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,7 +55,7 @@ import ru.ming13.moon.util.Formatter;
 import ru.ming13.moon.util.GoogleServices;
 import ru.ming13.moon.util.Intents;
 
-public class MoonActivity extends ActionBarActivity implements
+public class MoonActivity extends AppCompatActivity implements
 	GoogleApiClient.ConnectionCallbacks,
 	GoogleApiClient.OnConnectionFailedListener
 {
