@@ -47,7 +47,7 @@ public class FitnessActivityDistancesStorage implements ResultCallback<DataReadR
 	private final List<String> runningActivities;
 	private final List<String> bikingActivities;
 
-	public static FitnessActivityDistancesStorage with(@NonNull GoogleApiClient apiClient) {
+	public static FitnessActivityDistancesStorage of(@NonNull GoogleApiClient apiClient) {
 		return new FitnessActivityDistancesStorage(apiClient);
 	}
 

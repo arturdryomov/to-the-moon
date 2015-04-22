@@ -158,7 +158,7 @@ public class MoonActivity extends ActionBarActivity implements
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		FitnessActivityDistancesStorage.with(googleApiClient).readActivityDistances();
+		FitnessActivityDistancesStorage.of(googleApiClient).readActivityDistances();
 	}
 
 	@Subscribe
