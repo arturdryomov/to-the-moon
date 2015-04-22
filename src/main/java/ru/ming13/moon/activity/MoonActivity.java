@@ -144,7 +144,7 @@ public class MoonActivity extends ActionBarActivity implements
 
 	private void setUpGoogleApiClient() {
 		googleApiClient = new GoogleApiClient.Builder(this)
-			.addApi(Fitness.API)
+			.addApi(Fitness.HISTORY_API)
 			.addScope(Fitness.SCOPE_ACTIVITY_READ)
 			.addScope(Fitness.SCOPE_LOCATION_READ)
 			.addConnectionCallbacks(this)
