@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:1.1.3"
+        classpath "com.android.tools.build:gradle:1.2.3"
         classpath "com.jakewharton.sdkmanager:gradle-plugin:0.12.0"
     }
 }
@@ -75,22 +75,16 @@ dependencies {
         }
     }
 
-    compile "com.android.support:appcompat-v7:22.1.0"
-    compile "com.android.support:cardview-v7:22.1.0"
-    compile "com.android.support:support-annotations:22.1.0"
+    compile "com.android.support:appcompat-v7:22.1.1"
+    compile "com.android.support:cardview-v7:22.1.1"
+    compile "com.android.support:support-annotations:22.1.1"
     compile "com.f2prateek.bundler:bundler:1.1.0"
     compile "com.f2prateek.dart:dart:1.1.0"
     compile "com.jakewharton:butterknife:6.1.0"
-    compile "com.google.android.gms:play-services-fitness:7.0.0"
+    compile "com.google.android.gms:play-services-fitness:7.3.0"
     compile "com.melnykov:floatingactionbutton:1.3.0"
-    compile "com.squareup:otto:1.3.6"
+    compile "com.squareup:otto:1.3.7"
     compile "frankiesardo:icepick:3.0.2"
 
     provided "frankiesardo:icepick-processor:3.0.2"
-}
-
-task generateWrapper(type: Wrapper) {
-    description "Generates Gradle wrapper."
-
-    gradleVersion = "2.3"
 }
